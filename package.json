@@ -1,0 +1,25 @@
+{
+  "name": "webpackfromscratch",
+  "version": "1.0.0",
+  "description": "a test with webpack for component library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/supimon/webpackfromscratch.git"
+  },
+  "keywords": [
+    "webpack",
+    "sass",
+    "pug",
+    "es6"
+  ],
+  "author": "Supi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/supimon/webpackfromscratch/issues"
+  },
+  "homepage": "https://github.com/supimon/webpackfromscratch#readme"
+}
