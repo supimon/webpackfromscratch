@@ -1,3 +1,5 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
     stats: "errors-only",
@@ -49,4 +51,32 @@ exports.autoprefix = () => ({
   options: {
     plugins: () => [require("autoprefixer")()]
   }
+});
+
+exports.loadJavaScript = ({ include, exclude } = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        include,
+        exclude,
+        use: "babel-loader"
+      }
+    ]
+  }
+});
+
+exports.page = ({
+  filename = "./index.html",
+  template = "./src/layouts/homeLayout.pug",
+  entry
+} = {}) => ({
+  entry,
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: filename,
+      template
+      //chunks: ["initial"]
+    })
+  ]
 });

@@ -1,22 +1,37 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const merge = require("webpack-merge");
-
 const parts = require("./config/webpack.parts");
+const pagesArr = require("./config/pages");
 
 const commonConfig = merge([
   {
-    plugins: [
-      new HtmlWebpackPlugin({
-        title: "Webpack demo"
-      })
-    ]
-  }
+    entry: {
+      vendor: ["./src/vendor.js", "./src/vendor.scss"]
+    }
+  },
+  {
+    module: {
+      rules: [
+        {
+          test: /\.pug$/,
+          use: ["pug-loader"]
+        }
+      ]
+    }
+  },
+  parts.loadJavaScript()
 ]);
 
 const productionConfig = merge([
   parts.extractCSS({
     use: ["css-loader", parts.autoprefix(), "sass-loader"]
-  })
+  }),
+  {
+    optimization: {
+      splitChunks: {
+        chunks: "initial"
+      }
+    }
+  }
 ]);
 
 const developmentConfig = merge([
@@ -29,9 +44,30 @@ const developmentConfig = merge([
 ]);
 
 module.exports = mode => {
-  if (mode === "production") {
-    return merge(commonConfig, productionConfig, { mode });
-  }
+  const pages = pagesArr;
+  // const pages = [
+  //   parts.page({
+  //     filename: "./component1page/component1page.html",
+  //     template: "./src/pages/component1page/component1page.pug",
+  //     entry: {
+  //       "./component1Page/component1Page": [
+  //         "./src/pages/component1page/component1page.js",
+  //         "./src/pages/component1page/component1page.scss"
+  //       ]
+  //     }
+  //   }),
+  //   parts.page({
+  //     filename: "./component2page/component2page.html",
+  //     template: "./src/pages/component2page/component2page.pug",
+  //     entry: {
+  //       "./component2Page/component2Page": [
+  //         "./src/pages/component2page/component2page.js",
+  //         "./src/pages/component2page/component2page.scss"
+  //       ]
+  //     }
+  //   })
+  // ];
+  const config = mode === "production" ? productionConfig : developmentConfig;
 
-  return merge(commonConfig, developmentConfig, { mode });
+  return pages.map(page => merge(commonConfig, config, page, { mode }));
 };
