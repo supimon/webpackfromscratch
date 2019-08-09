@@ -26,7 +26,8 @@ const productionConfig = merge([
         chunks: "initial"
       }
     }
-  }
+  },
+  parts.clean()
 ]);
 
 const developmentConfig = merge([

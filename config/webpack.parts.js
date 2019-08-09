@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -79,4 +80,8 @@ exports.page = ({
       //chunks: ["initial"]
     })
   ]
+});
+
+exports.clean = path => ({
+  plugins: [new CleanWebpackPlugin()]
 });
