@@ -1,5 +1,9 @@
 ## Boilerplate for HTML development in AUKI
 
+### Cloning and Setting up the project
+
+- Clone the repository and run "npm install"
+
 ### Adding a new page
 
 - New pages are to be created within the pages directory inside the src directory.
