@@ -20,12 +20,19 @@ PENDING OPTIMISATIONS:
 
 - Each page has 2 chunks of JS files, one within the corresponding page folder and one within the vendor directory.
   -- `dist`
-  ---- `<page name>`  
+
+  ---- `<page name>`
+
   ------ `<page name>.html`
+
   ------ `<page name>.css`
-  ------ `<page name>.js`  
+
+  ------ `<page name>.js`
+
   ---- `vendor`
+
   ------ `<page name>`
+
   -------- `<page name>.js`
 
 - Unfortunately at this point in time, I could not figure out a reliable and automated way to have a common vendor chunk for all the pages. This would mean there could be repetitions in the vendor folder.
