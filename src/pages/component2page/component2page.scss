@@ -1,3 +1,5 @@
-.someChild {
-  color: red;
+$red-color: #ff0;
+
+.some-child {
+  color: $red-color;
 }

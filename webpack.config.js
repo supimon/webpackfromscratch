@@ -3,6 +3,7 @@ const parts = require("./config/webpack.parts");
 const pagesArr = require("./config/pages");
 const path = require("path");
 const glob = require("glob-all");
+const SassLintPlugin = require("sass-lint-webpack");
 
 const PATHS = {
   app: path.join(__dirname, "src"),
@@ -20,7 +21,10 @@ const commonConfig = merge([
       ]
     }
   },
-  parts.loadJavaScript()
+  parts.loadJavaScript(),
+  {
+    plugins: [new SassLintPlugin()]
+  }
 ]);
 
 const productionConfig = merge([
