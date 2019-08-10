@@ -1,5 +1,41 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+// const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // not working as expected
+const PurifyCSSPlugin = require("purifycss-webpack");
+const TerserPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const cssnano = require("cssnano");
+
+exports.loadImages = ({ include, exclude, options } = {}) => ({
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|svg|bmp|gif|jpeg)$/,
+        include,
+        exclude,
+        use: {
+          loader: "url-loader",
+          options
+        }
+      }
+    ]
+  }
+});
+
+exports.minifyCSS = ({ options }) => ({
+  plugins: [
+    new OptimizeCSSAssetsPlugin({
+      cssProcessor: cssnano,
+      cssProcessorOptions: options,
+      canPrint: false
+    })
+  ]
+});
+
+exports.minifyJavaScript = () => ({
+  optimization: {
+    minimizer: [new TerserPlugin({ sourceMap: true })]
+  }
+});
 
 exports.devServer = ({ host, port } = {}) => ({
   devServer: {
@@ -27,7 +63,6 @@ exports.loadCSS = ({ include, exclude } = {}) => ({
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 exports.extractCSS = ({ include, exclude, use = [] }) => {
-  // Output extracted CSS to a file
   const plugin = new MiniCssExtractPlugin({
     filename: "[name].css"
   });
@@ -77,11 +112,15 @@ exports.page = ({
     new HtmlWebpackPlugin({
       filename: filename,
       template
-      //chunks: ["initial"]
+      //chunks: ["initial"] // not working as expected
     })
   ]
 });
 
-exports.clean = path => ({
-  plugins: [new CleanWebpackPlugin()]
+// exports.clean = path => ({
+//   plugins: [new CleanWebpackPlugin()]
+// });
+
+exports.purifyCSS = ({ paths }) => ({
+  plugins: [new PurifyCSSPlugin({ paths })]
 });
