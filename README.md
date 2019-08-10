@@ -1,4 +1,4 @@
-## Boiler plate for HTML development in AUKI
+## Boilerplate for HTML development in AUKI
 
 ### Adding a new page
 
