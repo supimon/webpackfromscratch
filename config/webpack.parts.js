@@ -42,8 +42,11 @@ exports.devServer = ({ host, port } = {}) => ({
     // stats: "errors-only",
     host, // Defaults to `localhost`
     port, // Defaults to 8080
+    // contentBase,
+    // watchContentBase,
     open: true,
     overlay: true
+    // hot: true
   }
 });
 

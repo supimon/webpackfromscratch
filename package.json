@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "a test with webpack for component library",
   "main": "index.js",
+  "serve": {
+    "config": "webpack.config.js",
+    "port": "8080"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && webpack --env production",
-    "start": "webpack-dev-server --config ./webpack.config.js -env.NODE_ENV=development --mode=development --progress --open"
+    "start": "webpack-dev-server -env.NODE_ENV=development --mode=development --progress --open"
   },
   "repository": {
     "type": "git",
